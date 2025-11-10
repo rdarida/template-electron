@@ -1,0 +1,25 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    // Directories
+    ".vite": true,
+    "node_modules": true,
+    "out": true,
+    // Files
+    ".editorconfig": true,
+    ".eslintrc.json": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    "LICENSE": true,
+    "package-lock.json": true,
+    "tsconfig.json": true,
+    "vite.main.config.ts": true,
+    "vite.preload.config.ts": true,
+    "vite.renderer.config.ts": true
+  }
+}
