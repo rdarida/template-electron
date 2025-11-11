@@ -6,7 +6,7 @@ import { Store, decrement, increment } from '@/store';
 import { Button } from '@/components';
 
 export const CounterView: FC = (): JSX.Element => {
-  const count = useSelector((store: Store) => store.counter);
+  const { value } = useSelector((store: Store) => store.counter);
   const dispatch = useDispatch();
 
   const onDecrement = useCallback(() => {
@@ -25,7 +25,7 @@ export const CounterView: FC = (): JSX.Element => {
 
       <p>Welcome to your Electron application.</p>
 
-      <h4>Count: {count}</h4>
+      <h4>Count: {value}</h4>
 
       <div>
         <Button color="error" onClick={onDecrement}>

@@ -1,9 +1,35 @@
-import { CounterAction, CounterActionType } from './types';
+import { Channel } from '_types_';
 
-export function increment(): CounterAction {
-  return { type: CounterActionType.INCREMENT };
+import { CounterAction, CounterActionType, CounterThunk } from './types';
+
+function requestChange(): CounterAction {
+  return { type: CounterActionType.REQUEST };
 }
 
-export function decrement(): CounterAction {
-  return { type: CounterActionType.DECREMENT };
+function successChange(payload: number): CounterAction {
+  return { type: CounterActionType.SUCCESS, payload };
+}
+
+export function increment(): CounterThunk {
+  return (dispatch, getStore) => {
+    dispatch(requestChange());
+
+    const { value } = getStore().counter;
+
+    electronApi
+      .invoke<number>(Channel.COUNTER_INCREMENT, value)
+      .then(reply => dispatch(successChange(reply)));
+  };
+}
+
+export function decrement(): CounterThunk {
+  return (dispatch, getStore) => {
+    dispatch(requestChange());
+
+    const { value } = getStore().counter;
+
+    electronApi
+      .invoke<number>(Channel.COUNTER_DECREMENT, value)
+      .then(reply => dispatch(successChange(reply)));
+  };
 }

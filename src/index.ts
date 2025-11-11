@@ -1,6 +1,8 @@
-import { BrowserWindow, app } from 'electron';
+import { BrowserWindow, app, ipcMain } from 'electron';
 import started from 'electron-squirrel-startup';
 import { join } from 'node:path';
+
+import { Channel } from '_types_';
 
 import { productName } from '../package.json';
 
@@ -36,6 +38,9 @@ const createWindow = () => {
       join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
     );
   }
+
+  ipcMain.handle(Channel.COUNTER_INCREMENT, (e, value: number) => value + 1);
+  ipcMain.handle(Channel.COUNTER_DECREMENT, (e, value: number) => value - 1);
 };
 
 // This method will be called when Electron has finished
