@@ -1,4 +1,4 @@
 export enum Channel {
-  COUNTER_INCREMENT = 'ChannelCounterIncrement',
-  COUNTER_DECREMENT = 'ChannelCounterDecrement'
+  COUNTER_INCREMENT = 'Channel.Counter.Increment',
+  COUNTER_DECREMENT = 'Channel.Counter.Decrement'
 }
