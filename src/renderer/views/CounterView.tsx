@@ -1,18 +1,21 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+import { Store, decrement, increment } from '@/store';
 import { Button } from '@/components';
 
 export const CounterView: FC = (): JSX.Element => {
-  const [count, setCount] = useState(0);
+  const count = useSelector((store: Store) => store.counter);
+  const dispatch = useDispatch();
 
   const onDecrement = useCallback(() => {
-    setCount(current => current - 1);
-  }, []);
+    dispatch(decrement());
+  }, [dispatch]);
 
   const onIncrement = useCallback(() => {
-    setCount(current => current + 1);
-  }, []);
+    dispatch(increment());
+  }, [dispatch]);
 
   return (
     <div>
