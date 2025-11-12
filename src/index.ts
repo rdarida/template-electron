@@ -25,6 +25,7 @@ const createWindow = () => {
     minHeight: 720,
     width: 1080,
     height: 720,
+    show: false,
     webPreferences: {
       preload: join(__dirname, 'preload.js')
     }
@@ -32,11 +33,15 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    mainWindow
+      .loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL)
+      .then(() => mainWindow.show());
   } else {
-    mainWindow.loadFile(
-      join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
-    );
+    mainWindow
+      .loadFile(
+        join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
+      )
+      .then(() => mainWindow.show());
   }
 
   ipcMain.handle(Channel.COUNTER_INCREMENT, (e, value: number) => value + 1);
