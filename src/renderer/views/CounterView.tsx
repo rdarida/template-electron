@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { HeartFilled } from '@ant-design/icons';
 
 import { Store, decrement, increment } from '@/store';
 import { Button } from '@/components';
@@ -20,7 +20,7 @@ export const CounterView: FC = (): JSX.Element => {
   return (
     <div>
       <h1>
-        <FavoriteIcon color="error" /> Hello World!
+        <HeartFilled style={{ color: 'red' }} /> Hello World!
       </h1>
 
       <p>Welcome to your Electron application.</p>
@@ -28,11 +28,11 @@ export const CounterView: FC = (): JSX.Element => {
       <h4>Count: {value}</h4>
 
       <div>
-        <Button color="error" onClick={onDecrement}>
+        <Button color="red" onClick={onDecrement}>
           -
         </Button>
 
-        <Button color="success" onClick={onIncrement}>
+        <Button color="green" onClick={onIncrement}>
           +
         </Button>
       </div>

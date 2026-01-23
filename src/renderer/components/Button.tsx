@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Button as MuiButton, ButtonProps } from '@mui/material';
+import { Button as AntButton, ButtonProps } from 'antd';
 
 export const Button: FC<ButtonProps> = (props): JSX.Element => (
-  <MuiButton {...props} variant="contained" />
+  <AntButton {...props} variant="solid" />
 );
