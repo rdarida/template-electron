@@ -1,10 +1,11 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer, webUtils } from 'electron';
 
 import { Channel } from '_types_';
 
 const electronApi = {
+  getFilePath: (file: File): string => webUtils.getPathForFile(file),
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   invoke: <T>(channel: Channel, ...args: any[]): Promise<T> =>
     ipcRenderer.invoke(channel, ...args)
