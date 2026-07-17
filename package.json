@@ -54,5 +54,10 @@
     "sass": "~1.71.0",
     "typescript": "~4.5.4",
     "vite": "^5.4.21"
+  },
+  "overrides": {
+    "extract-zip": {
+      "yauzl": "3.3.1"
+    }
   }
 }
