@@ -17,10 +17,26 @@ if (started) {
   app.quit();
 }
 
+function getIcon(): string | undefined {
+  const icon = join(app.getAppPath(), 'assets', 'icon');
+
+  switch (process.platform) {
+    case 'win32':
+      return icon + '.ico';
+
+    case 'darwin':
+      return undefined;
+
+    default:
+      return icon + '.png';
+  }
+}
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: `${productName} ${app.getVersion()}`,
+    icon: getIcon(),
     minWidth: 1080,
     minHeight: 720,
     width: 1080,

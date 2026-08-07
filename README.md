@@ -5,3 +5,4 @@
 - [Building a Desktop Application Using Electron and React](https://www.youtube.com/playlist?list=PLkZU2rKh1mT8cML-VNcUHF3vB8qzzgxuA)
 - [Build a Markdown Notes app with Electron, React, Typescript, Tailwind and Jotai](https://www.youtube.com/watch?v=t8ane4BDyC8)
 - [CSS Grid - Create a FULL-HEIGHT RESPONSIVE Layout in Minutes](https://www.youtube.com/watch?v=xR23ktLwvrg)
+- [png2icons](https://www.npmjs.com/package/png2icons)

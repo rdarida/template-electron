@@ -1,3 +1,5 @@
+import { join } from 'node:path';
+
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
@@ -8,16 +10,19 @@ import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
+const icon = join(__dirname, 'assets', 'icon');
+
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true
+    asar: true,
+    icon
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({ setupIcon: icon + '.ico' }),
     new MakerZIP({}, ['darwin']),
-    new MakerRpm({}),
-    new MakerDeb({})
+    new MakerRpm({ options: { icon: icon + '.png' } }),
+    new MakerDeb({ options: { icon: icon + '.png' } })
   ],
   plugins: [
     new AutoUnpackNativesPlugin({}),
