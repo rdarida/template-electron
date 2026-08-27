@@ -1,8 +1,10 @@
-import { BrowserWindow, app, ipcMain } from 'electron';
-import started from 'electron-squirrel-startup';
 import { join } from 'node:path';
 
-import { Channel } from '_types_';
+import { program } from 'commander';
+import { BrowserWindow, app, ipcMain } from 'electron';
+import started from 'electron-squirrel-startup';
+
+import { Channel, CommandLineOptions } from '_types_';
 
 import { productName } from '../package.json';
 
@@ -16,6 +18,13 @@ declare const MAIN_WINDOW_VITE_NAME: string;
 if (started) {
   app.quit();
 }
+
+program
+  .name(productName)
+  .version(app.getVersion())
+  .option('-d, --devTools', 'Open DevTools')
+  .allowUnknownOption()
+  .parse(process.argv);
 
 function getIcon(): string | undefined {
   const icon = join(app.getAppPath(), 'assets', 'icon');
@@ -33,6 +42,8 @@ function getIcon(): string | undefined {
 }
 
 const createWindow = () => {
+  const options = program.opts<CommandLineOptions>();
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: `${productName} ${app.getVersion()}`,
@@ -47,17 +58,23 @@ const createWindow = () => {
     }
   });
 
+  const show = (): void => {
+    mainWindow.show();
+
+    if (options.devTools) {
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
+    }
+  };
+
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow
-      .loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL)
-      .then(() => mainWindow.show());
+    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL).then(show);
   } else {
     mainWindow
       .loadFile(
         join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
       )
-      .then(() => mainWindow.show());
+      .then(show);
   }
 
   ipcMain.handle(Channel.COUNTER_INCREMENT, (e, value: number) => value + 1);
