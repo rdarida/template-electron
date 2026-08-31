@@ -1,5 +1,6 @@
+import { join } from 'node:path';
+
 import { defineConfig } from 'vite';
-import { join } from 'path';
 
 // https://vitejs.dev/config
 export default defineConfig({
