@@ -10,7 +10,8 @@ import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
-const icon = join(__dirname, 'assets', 'icon');
+const assets = join(__dirname, 'assets');
+const icon = join(assets, 'icon');
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -19,7 +20,11 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({ iconUrl: icon + '.ico', setupIcon: icon + '.ico' }),
+    new MakerSquirrel({
+      iconUrl: icon + '.ico',
+      loadingGif: join(assets, 'install-spinner.gif'),
+      setupIcon: icon + '.ico'
+    }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({ options: { icon: icon + '.png' } }),
     new MakerDeb({ options: { icon: icon + '.png' } })
